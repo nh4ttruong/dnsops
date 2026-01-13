@@ -1,0 +1,47 @@
+stages:
+  - trigger
+
+variables:
+  GIT_STRATEGY: clone
+  DNSCONTROL_IMAGE: stackexchange/dnscontrol:latest
+
+.common-paths: &common-paths
+  - .gitlab-ci.yml
+  - creds.json
+  - zones/common.js
+  - zones/.gitlab-ci-template.yml
+
+.trigger-base:
+  stage: trigger
+  trigger:
+    include:
+      - local: zones/.gitlab-ci-template.yml
+    strategy: depend
+    forward:
+      pipeline_variables: true
+
+### Zone triggers ###
+
+example-com:
+  extends: .trigger-base
+  variables:
+    ZONE_DIR: example-com
+  rules:
+    - changes: *common-paths
+      when: manual
+    - changes:
+        - zones/example-com/**/*
+      when: always
+    - when: never
+
+mycompany-io:
+  extends: .trigger-base
+  variables:
+    ZONE_DIR: mycompany-io
+  rules:
+    - changes: *common-paths
+      when: manual
+    - changes:
+        - zones/mycompany-io/**/*
+      when: always
+    - when: never

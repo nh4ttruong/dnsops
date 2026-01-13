@@ -1,0 +1,15 @@
+{
+    "cloudflare_example_com": {
+        "TYPE": "CLOUDFLAREAPI",
+        "accountid": "$CF_ACCOUNT_ID_EXAMPLE_COM",
+        "apitoken": "$CF_API_TOKEN_EXAMPLE_COM"
+    },
+    "cloudflare_mycompany_io": {
+        "TYPE": "CLOUDFLAREAPI",
+        "accountid": "$CF_ACCOUNT_ID_MYCOMPANY_IO",
+        "apitoken": "$CF_API_TOKEN_MYCOMPANY_IO"
+    },
+    "none": {
+        "TYPE": "NONE"
+    }
+}

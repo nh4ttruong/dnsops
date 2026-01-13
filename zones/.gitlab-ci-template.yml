@@ -1,0 +1,34 @@
+stages:
+  - test
+  - deploy
+
+.base:
+  image:
+    name: $DNSCONTROL_IMAGE
+    entrypoint: [""]
+  before_script:
+    - cd zones/$ZONE_DIR
+    - echo "Zone directory - $(pwd)"
+
+check_and_review:
+  extends: .base
+  stage: test
+  script:
+    - dnscontrol version
+    - dnscontrol check --config dnsconfig.js
+    - dnscontrol preview --config dnsconfig.js --creds ../../creds.json
+
+push:
+  extends: .base
+  stage: deploy
+  script:
+    - echo "Pushing DNS changes for $ZONE_DIR..."
+    - dnscontrol push --config dnsconfig.js --creds ../../creds.json
+    - echo "DNS changes applied successfully!"
+  needs: [check_and_review]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: always
+    - when: never
+  environment:
+    name: production/$ZONE_DIR
