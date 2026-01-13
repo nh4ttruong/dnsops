@@ -56,7 +56,7 @@ Pipeline automatically: **check** → **preview** → **push**
 ## Repository Structure
 
 ```
-dns-mgmt/
+dnsops/
 ├── .gitlab-ci.yml              # Pipeline triggers per zone
 ├── creds.json                  # Provider credentials (env vars)
 └── zones/
@@ -262,7 +262,7 @@ Manage multiple providers in one repository:
 
 ```mermaid
 flowchart TB
-    subgraph repo["dns-mgmt Repository"]
+    subgraph repo["dnsops Repository"]
         common[zones/common.js]
         zone1[zones/main-domain/]
         zone2[zones/backup-domain/]
