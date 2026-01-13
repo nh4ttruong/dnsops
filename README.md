@@ -24,8 +24,8 @@ Managing DNS records manually through web dashboards creates several challenges:
 ### 1. Clone and Configure
 
 ```bash
-git clone https://github.com/nh4ttruong/
-cd dns-mgmt
+git clone https://github.com/nh4ttruong/dnsops
+cd dnsops
 ```
 
 ### 2. Set CI/CD Variables
